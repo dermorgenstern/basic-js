@@ -3,7 +3,7 @@ const CustomError = require("../extensions/custom-error");
 class VigenereCipheringMachine {
 
   constructor(decriptDirection = true){
-    
+    this.decriptDirection = decriptDirection;
   }
   
   encrypt(message, key) {
@@ -94,6 +94,8 @@ class VigenereCipheringMachine {
 
     let keyLC = key.toLowerCase();
     let encoded = encryptedMessage.toLowerCase();
+    if (!this.decriptDirection) encoded = encoded.split('').reverse().join('');
+    
 
     let decryptedMessage = "";
     let skippedLetters = 0;
@@ -110,7 +112,7 @@ class VigenereCipheringMachine {
         skippedLetters++;
       }
     }
-
+    if (!this.decriptDirection) decryptedMessage = decryptedMessage.split('').reverse().join('');
     return decryptedMessage.toUpperCase();
 
   }
